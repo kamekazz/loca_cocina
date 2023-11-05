@@ -20,13 +20,21 @@ public class Player : MonoBehaviour
         float _moveDistance = movedSpeedField * Time.deltaTime;
         float _playerRadius = .7f;
         float _playerHeight = 2f;
+        _moveDir = MyCollisionDetection(_moveDir, _moveDistance, _playerRadius, _playerHeight);
+        isWalking = _moveDir != Vector3.zero;
+        float _rotateSpeed = 10f;
+        transform.forward = Vector3.Slerp(transform.forward, _moveDir, Time.deltaTime * _rotateSpeed);
+    }
+
+    private Vector3 MyCollisionDetection(Vector3 _moveDir, float _moveDistance, float _playerRadius, float _playerHeight)
+    {
         bool _canMove = !Physics.CapsuleCast(
-                                                transform.position,
-                                                transform.position + Vector3.up * _playerHeight,
-                                                _playerRadius,
-                                                _moveDir,
-                                                _moveDistance
-                                            );
+                                                        transform.position,
+                                                        transform.position + Vector3.up * _playerHeight,
+                                                        _playerRadius,
+                                                        _moveDir,
+                                                        _moveDistance
+                                                    );
         if (!_canMove)
         {
             //can not move towards moveDir
@@ -76,9 +84,8 @@ public class Player : MonoBehaviour
         {
             transform.position += _moveDir * Time.deltaTime * movedSpeedField;
         }
-        isWalking = _moveDir != Vector3.zero;
-        float _rotateSpeed = 10f;
-        transform.forward = Vector3.Slerp(transform.forward, _moveDir, Time.deltaTime * _rotateSpeed);
+
+        return _moveDir;
     }
 
     public bool GetIsWalking()
