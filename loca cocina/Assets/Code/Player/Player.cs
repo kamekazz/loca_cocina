@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
     {
         if (selectedCounterSP != null)
         {
+            Debug.Log("GameInput_OnInteract_Action > if");
             selectedCounterSP.Interact();
         }
     }
@@ -87,6 +88,7 @@ public class Player : MonoBehaviour
 
     private void SetSelectedCounter(ClearCounter _selectedCounter)
     {
+        selectedCounterSP = _selectedCounter;
         OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
         {
             selectedCounter = _selectedCounter
