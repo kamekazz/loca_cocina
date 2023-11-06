@@ -569,7 +569,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 61753803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1806501447
+--- !u!1001 &1218562061
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -580,7 +580,7 @@ PrefabInstance:
     - target: {fileID: 3915369212771671228, guid: 9729325f0a2e35b478b0f58e9846cee6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.311
+      value: 1.558
       objectReference: {fileID: 0}
     - target: {fileID: 3915369212771671228, guid: 9729325f0a2e35b478b0f58e9846cee6,
         type: 3}
@@ -630,31 +630,25 @@ PrefabInstance:
     - target: {fileID: 5214873525443835101, guid: 9729325f0a2e35b478b0f58e9846cee6,
         type: 3}
       propertyPath: m_Name
-      value: ClearCounter2
+      value: ClearCounter (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6315184859722707978, guid: 9729325f0a2e35b478b0f58e9846cee6,
+        type: 3}
+      propertyPath: tomatoPrefabTF
+      value: 
+      objectReference: {fileID: 8440552866944062588, guid: 18d2bd8db9f90a345b360087989bcda0,
+        type: 3}
+    - target: {fileID: 6315184859722707978, guid: 9729325f0a2e35b478b0f58e9846cee6,
+        type: 3}
+      propertyPath: kitchenObjectSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6dcf136ad81a8a947a7ee5b18e18b545,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9729325f0a2e35b478b0f58e9846cee6, type: 3}
---- !u!1 &1836130744 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8809111581734759158, guid: 19ca391647f2a06469e6da7812281534,
-    type: 3}
-  m_PrefabInstance: {fileID: 7796359724824379693}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1836130747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1836130744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26daac1b789fc74489997a42221b0cd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1871454383
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,6 +963,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter
       objectReference: {fileID: 0}
+    - target: {fileID: 6315184859722707978, guid: 9729325f0a2e35b478b0f58e9846cee6,
+        type: 3}
+      propertyPath: tomatoPrefabTF
+      value: 
+      objectReference: {fileID: 8440552866944062588, guid: 92fc79bdfc9ec584aaa3ff5e9237ac96,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1032,29 +1032,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8109514697745780635, guid: 19ca391647f2a06469e6da7812281534,
-        type: 3}
-      propertyPath: countersLayerMask.m_Bits
-      value: 64
-      objectReference: {fileID: 0}
     - target: {fileID: 8809111581734759158, guid: 19ca391647f2a06469e6da7812281534,
         type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8809111581734759158, guid: 19ca391647f2a06469e6da7812281534,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8809111581734759158, guid: 19ca391647f2a06469e6da7812281534,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1836130747}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19ca391647f2a06469e6da7812281534, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -1064,4 +1050,4 @@ SceneRoots:
   - {fileID: 1962384239}
   - {fileID: 7796359724824379693}
   - {fileID: 5300710945263064972}
-  - {fileID: 1806501447}
+  - {fileID: 1218562061}

@@ -46,7 +46,6 @@ public class Player : MonoBehaviour
     {
         if (selectedCounterSP != null)
         {
-            Debug.Log("GameInput_OnInteract_Action > if");
             selectedCounterSP.Interact();
         }
     }
