@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float movedSpeedField = 7f;
     [SerializeField] LayerMask countersLayerMask;
-
+    GameInput gameInputSP;
 
 
     bool isWalking;
@@ -14,12 +15,18 @@ public class Player : MonoBehaviour
     void Update()
     {
         HandheldMove();
-        HandleInteractions();
+
     }
 
-    void HandleInteractions()
+    void Start()
     {
-        Vector2 _inputVector = GetComponent<GameInput>().GetMovementVector();
+        gameInputSP = GetComponent<GameInput>();
+        gameInputSP.OnInteractAction += GameInput_OnInteract_Action;
+    }
+
+    private void GameInput_OnInteract_Action(object sender, EventArgs e)
+    {
+        Vector2 _inputVector = gameInputSP.GetMovementVector();
         Vector3 _moveDir = new Vector3(_inputVector.x, 0f, _inputVector.y);
         if (_moveDir != Vector3.zero)
         {
@@ -36,13 +43,36 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Debug.Log("-");
+
+        }
+    }
+
+    void HandleInteractions()
+    {
+        Vector2 _inputVector = gameInputSP.GetMovementVector();
+        Vector3 _moveDir = new Vector3(_inputVector.x, 0f, _inputVector.y);
+        if (_moveDir != Vector3.zero)
+        {
+            lastInteractDir = _moveDir;
+        }
+        float _interactDistance = 2f;
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit _raycastHit, _interactDistance, countersLayerMask))
+        {
+            if (_raycastHit.transform.TryGetComponent(out ClearCounter clearCounterSP))
+            {
+                clearCounterSP.Interact();
+            }
+
+        }
+        else
+        {
+
         }
     }
 
     private void HandheldMove()
     {
-        Vector2 _inputVector = GetComponent<GameInput>().GetMovementVector();
+        Vector2 _inputVector = gameInputSP.GetMovementVector();
         Vector3 _moveDir = new Vector3(_inputVector.x, 0f, _inputVector.y);
 
         float _moveDistance = movedSpeedField * Time.deltaTime;
