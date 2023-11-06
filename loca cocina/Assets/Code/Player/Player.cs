@@ -5,11 +5,39 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] float movedSpeedField = 7f;
+    [SerializeField] LayerMask countersLayerMask;
+
+
 
     bool isWalking;
+    Vector3 lastInteractDir;
     void Update()
     {
         HandheldMove();
+        HandleInteractions();
+    }
+
+    void HandleInteractions()
+    {
+        Vector2 _inputVector = GetComponent<GameInput>().GetMovementVector();
+        Vector3 _moveDir = new Vector3(_inputVector.x, 0f, _inputVector.y);
+        if (_moveDir != Vector3.zero)
+        {
+            lastInteractDir = _moveDir;
+        }
+        float _interactDistance = 2f;
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit _raycastHit, _interactDistance, countersLayerMask))
+        {
+            if (_raycastHit.transform.TryGetComponent(out ClearCounter clearCounterSP))
+            {
+                clearCounterSP.Interact();
+            }
+
+        }
+        else
+        {
+            Debug.Log("-");
+        }
     }
 
     private void HandheldMove()
