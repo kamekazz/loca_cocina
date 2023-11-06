@@ -5,18 +5,30 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
+    public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
+    public class OnSelectedCounterChangedEventArgs : EventArgs
+    {
+        public ClearCounter selectedCounter;
+    }
     [SerializeField] float movedSpeedField = 7f;
     [SerializeField] LayerMask countersLayerMask;
     GameInput gameInputSP;
+    ClearCounter selectedCounterSP;
 
 
     bool isWalking;
     Vector3 lastInteractDir;
-    void Update()
-    {
-        HandheldMove();
 
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.LogError("There is more than one Player instance");
+        }
+        Instance = this;
     }
+
 
     void Start()
     {
@@ -24,26 +36,17 @@ public class Player : MonoBehaviour
         gameInputSP.OnInteractAction += GameInput_OnInteract_Action;
     }
 
+    void Update()
+    {
+        HandheldMove();
+        HandleInteractions();
+    }
+
     private void GameInput_OnInteract_Action(object sender, EventArgs e)
     {
-        Vector2 _inputVector = gameInputSP.GetMovementVector();
-        Vector3 _moveDir = new Vector3(_inputVector.x, 0f, _inputVector.y);
-        if (_moveDir != Vector3.zero)
+        if (selectedCounterSP != null)
         {
-            lastInteractDir = _moveDir;
-        }
-        float _interactDistance = 2f;
-        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit _raycastHit, _interactDistance, countersLayerMask))
-        {
-            if (_raycastHit.transform.TryGetComponent(out ClearCounter clearCounterSP))
-            {
-                clearCounterSP.Interact();
-            }
-
-        }
-        else
-        {
-
+            selectedCounterSP.Interact();
         }
     }
 
@@ -55,19 +58,39 @@ public class Player : MonoBehaviour
         {
             lastInteractDir = _moveDir;
         }
-        float _interactDistance = 2f;
+        float _interactDistance = 1f;
         if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit _raycastHit, _interactDistance, countersLayerMask))
         {
             if (_raycastHit.transform.TryGetComponent(out ClearCounter clearCounterSP))
             {
-                clearCounterSP.Interact();
+                if (clearCounterSP != selectedCounterSP)
+                {
+                    SetSelectedCounter(clearCounterSP);
+                }
             }
+            else
+            {
 
+
+                SetSelectedCounter(null);
+            }
         }
         else
         {
 
+
+            SetSelectedCounter(null);
         }
+
+
+    }
+
+    private void SetSelectedCounter(ClearCounter _selectedCounter)
+    {
+        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
+        {
+            selectedCounter = _selectedCounter
+        });
     }
 
     private void HandheldMove()
@@ -150,5 +173,6 @@ public class Player : MonoBehaviour
     {
         return isWalking;
     }
+
 
 }
