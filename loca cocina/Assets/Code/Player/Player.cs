@@ -128,7 +128,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
             //attempt only x movement
             Vector3 _moveDirX = new Vector3(_moveDir.x, 0, 0).normalized;
-            _canMove = !Physics.CapsuleCast(
+            _canMove = _moveDir.x != 0 && !Physics.CapsuleCast(
                                                 transform.position,
                                                 transform.position + Vector3.up * _playerHeight,
                                                 _playerRadius,
@@ -147,7 +147,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
                 // Attempt only Z movement
                 Vector3 _moveDirZ = new Vector3(0, 0, _moveDir.z).normalized;
-                _canMove = !Physics.CapsuleCast(
+                _canMove = _moveDir.z != 0 && !Physics.CapsuleCast(
                                                     transform.position,
                                                     transform.position + Vector3.up * _playerHeight,
                                                     _playerRadius,
