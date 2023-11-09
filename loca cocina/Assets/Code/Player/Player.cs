@@ -39,7 +39,10 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     {
         gameInputSP = GetComponent<GameInput>();
         gameInputSP.OnInteractAction += GameInput_OnInteract_Action;
+        gameInputSP.OnInteractAlternateAction += GameInput_OnInteract_Alternate_Action;
     }
+
+
 
     void Update()
     {
@@ -52,6 +55,14 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         if (selectedCounterSP != null)
         {
             selectedCounterSP.Interact(this);
+        }
+    }
+
+    private void GameInput_OnInteract_Alternate_Action(object sender, EventArgs e)
+    {
+        if (selectedCounterSP != null)
+        {
+            selectedCounterSP.InteractAlternate(this);
         }
     }
 
