@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 478372205135805241}
   - component: {fileID: 8317618388291771273}
   - component: {fileID: 7550671696214434663}
+  - component: {fileID: 912963496088319251}
   m_Layer: 5
   m_Name: ProgressBarUI
   m_TagString: Untagged
@@ -118,6 +119,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cuttingCounterSP: {fileID: 774942994971045436}
   barImageCP: {fileID: 7675891384404526608}
+--- !u!114 &912963496088319251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465331134471854583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58631c9a606680b4cbc6eec3fd25055e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 2
 --- !u!1 &2154333209459019372
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +202,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.793
+  m_FillAmount: 0.478
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -562,7 +576,7 @@ PrefabInstance:
     - target: {fileID: 3915369212771671228, guid: 739bc42f5f2760947be9d2ee5a0e4e07,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 4.3770256
       objectReference: {fileID: 0}
     - target: {fileID: 3915369212771671228, guid: 739bc42f5f2760947be9d2ee5a0e4e07,
         type: 3}
@@ -572,7 +586,7 @@ PrefabInstance:
     - target: {fileID: 3915369212771671228, guid: 739bc42f5f2760947be9d2ee5a0e4e07,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 3915369212771671228, guid: 739bc42f5f2760947be9d2ee5a0e4e07,
         type: 3}
@@ -608,6 +622,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852555322397874785, guid: 739bc42f5f2760947be9d2ee5a0e4e07,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 5214873525443835101, guid: 739bc42f5f2760947be9d2ee5a0e4e07,
         type: 3}
@@ -660,7 +679,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterTopPointTF: {fileID: 3588467370719867340}
-  cuttingRecipeArrayOS: []
+  cuttingRecipeArrayOS:
+  - {fileID: 11400000, guid: f96f37eb07e39ad48809df674ce6f3e4, type: 2}
+  - {fileID: 11400000, guid: 72a260304a0421b48bbc81a35165a13e, type: 2}
+  - {fileID: 11400000, guid: aacb6b8e6b3c1ab4784ea57e736e2f91, type: 2}
 --- !u!4 &4957723051985942289 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3915369212771671228, guid: 739bc42f5f2760947be9d2ee5a0e4e07,
