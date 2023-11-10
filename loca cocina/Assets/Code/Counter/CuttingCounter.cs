@@ -11,7 +11,10 @@ public class CuttingCounter : BaseCounter
         {
             if (playerSP.HasKitchenObject())
             {
-                playerSP.GetKitchenObject().SetKitchenObjectParent(this);
+                if (HasRecipeWithInput(playerSP.GetKitchenObject().GetKitchenObjectSO()))
+                {
+                    playerSP.GetKitchenObject().SetKitchenObjectParent(this);
+                }
             }
         }
         else
