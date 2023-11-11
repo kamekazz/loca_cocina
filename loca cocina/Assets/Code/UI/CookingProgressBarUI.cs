@@ -35,7 +35,7 @@ public class CookingProgressBarUI : MonoBehaviour
         {
             barImageCP.color = Color.yellow;
         }
-        Debug.Log(e.isBurnetTimer);
+
     }
 
     void Show()
