@@ -11,6 +11,13 @@ public class StoveCounter : BaseCounter
         public State state;
     }
 
+    public event EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
+    public class OnProgressChangedEventArgs : EventArgs
+    {
+        public float progressNormalized;
+        public bool isBurnetTimer;
+    }
+
     public enum State
     {
         Idle, Frying, Fried, Burned
@@ -20,7 +27,10 @@ public class StoveCounter : BaseCounter
     State state;
 
     float fryingTimer = 0f;
-    float burningTimer = 0f;
+    float cookieTime = 0f;
+
+    public bool isBurnetTimer = false;
+
 
     void Start()
     {
@@ -39,20 +49,20 @@ public class StoveCounter : BaseCounter
                 case State.Frying:
 
                     fryingTimer += Time.deltaTime;
-
+                    UpdateProgressUI();
                     if (fryingTimer > fryingRecipeSO.fryingTimerMax)
                     {
                         GetKitchenObject().DestroySelf();
                         KitchenObject.SpawnKitchenObject(fryingRecipeSO.output, this);
                         state = State.Fried;
-                        burningTimer = 0f;
-
+                        fryingTimer = 0f;
                     }
                     break;
                 case State.Fried:
-                    burningTimer += Time.deltaTime;
-
-                    if (burningTimer > fryingRecipeSO.fryingTimerMax)
+                    fryingTimer += Time.deltaTime;
+                    UpdateProgressUI();
+                    isBurnetTimer = true;
+                    if (fryingTimer > fryingRecipeSO.fryingTimerMax)
                     {
                         GetKitchenObject().DestroySelf();
                         KitchenObject.SpawnKitchenObject(fryingRecipeSO.overDone, this);
@@ -83,6 +93,7 @@ public class StoveCounter : BaseCounter
                     state = State.Frying;
                     fryingTimer = 0f;
                     OnStateChanged?.Invoke(this, new OnStateChangedArgs { state = state });
+                    UpdateProgressUI();
                 }
             }
         }
@@ -107,10 +118,12 @@ public class StoveCounter : BaseCounter
         FryingRecipeSO _fryingRecipeSO = GetFryingRecipeSOWithInput(inputKitchenObjectSO);
         if (_fryingRecipeSO != null)
         {
+            cookieTime = _fryingRecipeSO.fryingTimerMax;
             return true;
         }
         else
         {
+            cookieTime = 0f;
             return false;
         }
 
@@ -126,5 +139,21 @@ public class StoveCounter : BaseCounter
             }
         }
         return null;
+    }
+
+    private void UpdateProgressUI()
+    {
+        FryingRecipeSO _fryingRecipeSO = GetFryingRecipeSOWithInput(
+                                                   GetKitchenObject().GetKitchenObjectSO()
+                                               );
+
+        OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs
+        {
+            progressNormalized = fryingTimer / cookieTime,
+            isBurnetTimer = isBurnetTimer
+        });
+
+
+
     }
 }
